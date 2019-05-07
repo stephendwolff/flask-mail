@@ -156,7 +156,7 @@ class Connection(object):
 
     def configure_host(self):
         if self.mail.use_ssl:
-            context = ssl.SSLContext(ssl.PROTOCOL_SSLv3)
+            context = ssl.SSLContext(ssl.PROTOCOL_TLS)
             host = smtplib.SMTP_SSL(self.mail.server, self.mail.port)
         else:
             host = smtplib.SMTP(self.mail.server, self.mail.port)
