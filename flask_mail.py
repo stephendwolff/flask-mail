@@ -11,6 +11,8 @@
 
 from __future__ import with_statement
 
+import ssl
+
 __version__ = '0.9.1'
 
 import re
@@ -131,6 +133,7 @@ def _has_newline(line):
         return True
     return False
 
+
 class Connection(object):
     """Handles connection to host."""
 
@@ -153,6 +156,7 @@ class Connection(object):
 
     def configure_host(self):
         if self.mail.use_ssl:
+            context = ssl.SSLContext(ssl.PROTOCOL_SSLv3)
             host = smtplib.SMTP_SSL(self.mail.server, self.mail.port)
         else:
             host = smtplib.SMTP(self.mail.server, self.mail.port)
@@ -461,6 +465,7 @@ class Message(object):
         :param content_type: file mimetype
         :param data: the raw file data
         :param disposition: content-disposition (if any)
+        :param headers: headers
         """
         self.attachments.append(
             Attachment(filename, content_type, data, disposition, headers))
